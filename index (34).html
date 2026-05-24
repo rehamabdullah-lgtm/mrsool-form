@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Captain Registration</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Arial,sans-serif;background:#f0f2f5;color:#111;min-height:100vh;padding:16px}
+h1{text-align:center;font-size:18px;color:#0d1b3e;margin-bottom:16px;padding:12px;background:#fff;border-radius:10px}
+.card{background:#fff;border-radius:10px;padding:14px;margin-bottom:10px}
+.card h2{font-size:12px;font-weight:700;color:#888;text-transform:uppercase;margin-bottom:10px;letter-spacing:.5px}
+.field{margin-bottom:10px}
+.field:last-child{margin-bottom:0}
+label{display:block;font-size:12px;font-weight:600;color:#555;margin-bottom:4px}
+input,select,textarea{width:100%;padding:10px 12px;border:1.5px solid #ddd;border-radius:8px;font-size:15px;background:#f8f9fb;color:#111;outline:none;-webkit-appearance:none;appearance:none}
+input:focus,select:focus,textarea:focus{border-color:#c9a84c;background:#fff}
+input.err,select.err{border-color:#e00}
+.err-msg{font-size:11px;color:#e00;margin-top:3px;display:none}
+.show-err{display:block}
+textarea{min-height:70px;resize:vertical;font-size:14px}
+.req{color:#e00}
+.opt{color:#aaa;font-size:11px;font-weight:400}
+button{width:100%;padding:14px;background:#0d1b3e;color:#fff;border:none;border-radius:10px;font-size:16px;font-weight:700;cursor:pointer;margin-bottom:8px}
+button:active{opacity:.85}
+button:disabled{opacity:.5;cursor:not-allowed}
+.spinner{display:inline-block;width:18px;height:18px;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite;vertical-align:middle;margin-right:6px}
+@keyframes spin{to{transform:rotate(360deg)}}
+.success{display:none;text-align:center;background:#fff;border-radius:10px;padding:30px 16px}
+.success.show{display:block}
+.success h2{color:#15803d;font-size:20px;margin-bottom:8px}
+.success p{color:#555;font-size:14px;margin-bottom:16px}
+.success button{background:#0d1b3e}
+</style>
+</head>
+<body>
+
+<h1>🏍️ Captain Registration — Mrsool KSA</h1>
+
+<div id="formSection">
+
+<div class="card">
+  <h2>Captain Info</h2>
+  <div class="field">
+    <label>Captain Name <span class="req">*</span></label>
+    <input type="text" id="captain_name" placeholder="Full name" autocomplete="name"/>
+    <div class="err-msg" id="e_name">Required</div>
+  </div>
+  <div class="field">
+    <label>Mobile Number <span class="req">*</span></label>
+    <input type="tel" id="phone" placeholder="e.g. 0501234567" inputmode="tel"/>
+    <div class="err-msg" id="e_phone">Required</div>
+  </div>
+  <div class="field">
+    <label>WhatsApp Number <span class="req">*</span></label>
+    <input type="tel" id="whatsapp" placeholder="e.g. 0501234567" inputmode="tel"/>
+    <div class="err-msg" id="e_wa">Required</div>
+  </div>
+  <div class="field">
+    <label>City <span class="req">*</span></label>
+    <select id="city">
+      <option value="">— Select —</option>
+      <option>Riyadh</option><option>Jeddah</option><option>Dammam</option>
+      <option>Mecca</option><option>Medina</option><option>Khobar</option>
+      <option>Abha</option><option>Taif</option><option>Tabuk</option>
+      <option>Hail</option><option>Najran</option><option>Jizan</option>
+      <option>Sharkyah</option><option>Other</option>
+    </select>
+    <div class="err-msg" id="e_city">Required</div>
+  </div>
+</div>
+
+<div class="card">
+  <h2>Sales Agent & Team</h2>
+  <div class="field">
+    <label>Select Agent <span class="req">*</span></label>
+    <select id="sales_name">
+      <option value="">— Select —</option>
+      <option>Abdulrahman</option><option>Jihan</option><option>Mariam</option>
+      <option>Salma</option><option>Mohamed Ibrahim</option><option>Nourhan</option>
+      <option>Yasmien</option><option>Nourhan L</option><option>Nouran</option>
+      <option>Asmaa</option>
+    </select>
+    <div class="err-msg" id="e_sales">Required</div>
+  </div>
+  <div class="field">
+    <label>Team Leader <span class="req">*</span></label>
+    <select id="team_leader">
+      <option value="">— Select —</option>
+      <option>Nourhan</option>
+      <option>Yasmien</option>
+    </select>
+    <div class="err-msg" id="e_team">Required</div>
+  </div>
+</div>
+
+<div class="card">
+  <h2>Bank Details <span class="opt">(optional)</span></h2>
+  <div class="field">
+    <label>National ID</label>
+    <input type="text" id="national_id" placeholder="1XXXXXXXXX" inputmode="numeric" maxlength="10"/>
+  </div>
+  <div class="field">
+    <label>IBAN</label>
+    <input type="text" id="iban" placeholder="SA00 0000 0000 0000 0000 0000" maxlength="24"/>
+  </div>
+  <div class="field">
+    <label>Account Holder Name</label>
+    <input type="text" id="account_name" placeholder="Full name as on bank account"/>
+  </div>
+  <div class="field">
+    <label>Bank Name</label>
+    <input type="text" id="bank_name" placeholder="e.g. Al Rajhi, SNB..."/>
+  </div>
+</div>
+
+<div class="card">
+  <h2>Notes <span class="opt">(optional)</span></h2>
+  <textarea id="note" placeholder="Any additional notes..."></textarea>
+</div>
+
+<button id="submitBtn" onclick="submitForm()">Submit Registration</button>
+
+</div>
+
+<div class="success" id="successScreen">
+  <h2>✅ Submitted!</h2>
+  <p>Captain's data has been recorded successfully.</p>
+  <button onclick="resetForm()">+ Register Another Captain</button>
+</div>
+
+<script>
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx3IcqirF4ltgd9ZJv3-IyFBUATmK5PEz5uZkyzc2bV9Ilvn1coaW1q0FvHCw_IholOMA/exec";
+
+function v(id){return document.getElementById(id)}
+function setErr(id,show){
+  const el=v(id);
+  el.classList.toggle('err',show);
+  const em=el.nextElementSibling;
+  if(em&&em.classList.contains('err-msg')) em.classList.toggle('show-err',show);
+}
+
+function validate(){
+  let ok=true;
+  ['captain_name','phone','whatsapp'].forEach(id=>{
+    const empty=!v(id).value.trim();
+    setErr(id,empty);
+    if(empty) ok=false;
+  });
+  ['city','sales_name','team_leader'].forEach(id=>{
+    const empty=!v(id).value;
+    setErr(id,empty);
+    if(empty) ok=false;
+  });
+  return ok;
+}
+
+function resetForm(){
+  ['captain_name','phone','whatsapp','national_id','iban','account_name','bank_name','note'].forEach(id=>v(id).value='');
+  ['city','sales_name','team_leader'].forEach(id=>v(id).value='');
+  v('successScreen').classList.remove('show');
+  v('formSection').style.display='block';
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+async function submitForm(){
+  if(!validate()) return;
+  const btn=v('submitBtn');
+  btn.disabled=true;
+  btn.innerHTML='<span class="spinner"></span> Sending...';
+
+  const payload={
+    captain_name: v('captain_name').value.trim(),
+    phone:        v('phone').value.trim(),
+    whatsapp:     v('whatsapp').value.trim(),
+    city:         v('city').value,
+    sales_name:   v('sales_name').value,
+    team_leader:  v('team_leader').value,
+    national_id:  v('national_id').value.trim(),
+    iban:         v('iban').value.trim(),
+    account_name: v('account_name').value.trim(),
+    bank_name:    v('bank_name').value.trim(),
+    note:         v('note').value.trim()
+  };
+
+  try{
+    const ctrl=new AbortController();
+    const t=setTimeout(()=>ctrl.abort(),10000);
+    await fetch(SCRIPT_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload),signal:ctrl.signal});
+    clearTimeout(t);
+    v('formSection').style.display='none';
+    v('successScreen').classList.add('show');
+    window.scrollTo({top:0,behavior:'smooth'});
+  }catch{
+    btn.disabled=false;
+    btn.innerHTML='Submit Registration';
+    alert('Error. Please try again.');
+  }
+}
+</script>
+</body>
+</html>
